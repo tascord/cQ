@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@200;300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/p/style/quiz.css">
+
+    <title>Home — cQ</title>
+
+</head>
+<body>
+    
+    <!-- Funny fake slides -->
+    <div class="slide" style="z-index: 3" data-slide-id="3">
+        <div class="inner">
+            
+            <h1>cQ — A simple, easy forms tool.</h1>
+            <sub>by <b>tascord</b></sub>
+
+            <div class="inputs">
+                <button onclick="advanceSlide()">When ready, click me to begin!</button>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="slide" style="z-index: 2" data-slide-id="3">
+        <div class="inner">
+            
+            <h1>A tool by and for me.</h1>
+            <sub>
+                cQ is a tool written by and for me.
+                It's only purpose is to make collecting data, both for me and the party's im querying, less mind numbing.
+                It's not for sale, and at least not now for public use.
+                If you find any bugs, you can email me <a href="mailto:oscar_hill@icloud.com">here</a>. I do really appreciate that.
+                
+                <br><br>
+
+                Alrighty, thats about it! See you 'round!
+                
+            </sub>
+
+        </div>
+    </div>
+
+
+    <!-- No script for this on da home page lol -->
+    <script>
+
+        function advanceSlide() {
+
+            let slide_index = 0;
+            if(document.querySelectorAll('.slide')[slide_index + 1]) document.querySelectorAll('.slide')[slide_index++].style.animation = 'slide-out 1s cubic-bezier(0.2, 1.24, 1, 1) forwards';
+
+
+        }
+
+    </script>
+
+</body>
+</html>

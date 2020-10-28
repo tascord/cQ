@@ -1,0 +1,160 @@
+
+$back : #0e0000;
+$mid  : #a15266;
+$light: #ebabbb;
+
+body {
+    
+    width: 100vw;
+    height: 100vh;
+
+    margin: 0;
+    padding: 0;
+
+    overflow: hidden;
+
+    * {
+        font-family: 'Nunito', sans-serif;
+    }
+    
+}
+
+.slide {
+
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    width: 100vw;
+    height: 100vh;
+
+    margin: 0;
+    padding: 0 0 0 5vmin;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    background-color: $back;
+
+    .inner {
+        
+        width: 60%;
+
+        margin-right: 25%;
+
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        
+        h1 {
+
+            color: $light;
+
+            font-size: 5vmin;
+            margin: 0;
+
+        }
+
+        sub {
+
+            color: $mid;
+            font-size: 2vmin;
+
+            &.error {
+                font-style: italic;
+            }
+
+        }
+
+    }
+
+    .inputs {
+            
+        width: 70%;
+
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: left;
+        flex-wrap: wrap;
+
+        margin-top: 3vmin;
+
+        input[type="text"] {
+            width: 30%;
+        }
+
+        button {
+            font-size: 90%;
+        }
+
+    }
+
+    .skip {
+
+        position: absolute;
+        bottom: 5%;
+        right: 5%;
+
+    }
+
+}
+
+button, input[type="text"] {
+
+    padding: 1%;
+
+    color: $light;
+    background: none;
+    cursor: pointer;
+
+    outline: none;
+    border: 2px solid $mid;
+    border-radius: 20px;
+
+    transition: border 0.15s ease-in-out;
+    &:hover, &:active {
+        border-color: $light;
+    }
+
+}
+
+a {
+    text-decoration: none;
+    font-style: italic;
+    color: $light;
+}
+
+.radio {
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+
+    input {
+        width: 2vmin;
+        margin-right: 0.5vmin;
+    }
+
+    color: $light;
+
+}
+
+input[type="text"]::placeholder {
+    color: $light;
+    transition: color 0.15s ease-in-out;
+}
+
+input[type="radio"] {
+    
+}
+
+@keyframes slide-out {
+
+    0%   { left: 0%;   visibility: visible; }
+    99%  { left: 100%; visibility: visible; }
+    100% { left: 100%; visibility: hidden;  }
+
+}

@@ -1,0 +1,195 @@
+body {
+  width: 100vw;
+  height: 100vh;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+
+body * {
+  font-family: 'Nunito', sans-serif;
+}
+
+.slide {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  margin: 0;
+  padding: 0 0 0 5vmin;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  background-color: #0e0000;
+}
+
+.slide .inner {
+  width: 60%;
+  margin-right: 25%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.slide .inner h1 {
+  color: #ebabbb;
+  font-size: 5vmin;
+  margin: 0;
+}
+
+.slide .inner sub {
+  color: #a15266;
+  font-size: 2vmin;
+}
+
+.slide .inner sub.error {
+  font-style: italic;
+}
+
+.slide .inputs {
+  width: 70%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: left;
+      -ms-flex-pack: left;
+          justify-content: left;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  margin-top: 3vmin;
+}
+
+.slide .inputs input[type="text"] {
+  width: 30%;
+}
+
+.slide .inputs button {
+  font-size: 90%;
+}
+
+.slide .skip {
+  position: absolute;
+  bottom: 5%;
+  right: 5%;
+}
+
+button, input[type="text"] {
+  padding: 1%;
+  color: #ebabbb;
+  background: none;
+  cursor: pointer;
+  outline: none;
+  border: 2px solid #a15266;
+  border-radius: 20px;
+  -webkit-transition: border 0.15s ease-in-out;
+  transition: border 0.15s ease-in-out;
+}
+
+button:hover, button:active, input[type="text"]:hover, input[type="text"]:active {
+  border-color: #ebabbb;
+}
+
+a {
+  text-decoration: none;
+  font-style: italic;
+  color: #ebabbb;
+}
+
+.radio {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  color: #ebabbb;
+}
+
+.radio input {
+  width: 2vmin;
+  margin-right: 0.5vmin;
+}
+
+input[type="text"]::-webkit-input-placeholder {
+  color: #ebabbb;
+  -webkit-transition: color 0.15s ease-in-out;
+  transition: color 0.15s ease-in-out;
+}
+
+input[type="text"]:-ms-input-placeholder {
+  color: #ebabbb;
+  -webkit-transition: color 0.15s ease-in-out;
+  transition: color 0.15s ease-in-out;
+}
+
+input[type="text"]::-ms-input-placeholder {
+  color: #ebabbb;
+  -webkit-transition: color 0.15s ease-in-out;
+  transition: color 0.15s ease-in-out;
+}
+
+input[type="text"]::placeholder {
+  color: #ebabbb;
+  -webkit-transition: color 0.15s ease-in-out;
+  transition: color 0.15s ease-in-out;
+}
+
+@-webkit-keyframes slide-out {
+  0% {
+    left: 0%;
+    visibility: visible;
+  }
+  99% {
+    left: 100%;
+    visibility: visible;
+  }
+  100% {
+    left: 100%;
+    visibility: hidden;
+  }
+}
+
+@keyframes slide-out {
+  0% {
+    left: 0%;
+    visibility: visible;
+  }
+  99% {
+    left: 100%;
+    visibility: visible;
+  }
+  100% {
+    left: 100%;
+    visibility: hidden;
+  }
+}
+/*# sourceMappingURL=quiz.css.map */
