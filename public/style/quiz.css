@@ -163,6 +163,27 @@ input[type="text"]::placeholder {
   transition: color 0.15s ease-in-out;
 }
 
+input[type="radio"] {
+  -webkit-transform: scale(1.7, 1.7);
+          transform: scale(1.7, 1.7);
+}
+
+.progress {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 2vmin;
+}
+
+.progress .inner {
+  width: 0%;
+  height: 100%;
+  background: #a15266;
+  -webkit-transition: width 1s ease-in-out;
+  transition: width 1s ease-in-out;
+}
+
 @-webkit-keyframes slide-out {
   0% {
     left: 0%;

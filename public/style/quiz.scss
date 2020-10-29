@@ -149,6 +149,31 @@ input[type="text"]::placeholder {
 
 input[type="radio"] {
     
+    transform: scale(1.7, 1.7);
+    // appearance: none;
+
+}
+
+.progress {
+
+    position: absolute;
+    
+    top: 0;
+    left: 0;
+
+    width: 100vw;
+    height: 2vmin;
+
+    .inner {
+
+        width: 0%;
+        height: 100%;
+
+        background: $mid;
+        transition: width 1s ease-in-out;
+
+    }
+
 }
 
 @keyframes slide-out {

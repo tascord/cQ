@@ -1,6 +1,7 @@
 let form;
 let slide_index = 0;
 let slide_z_index = 0;
+let responses = [];
 
 const load_form = () => {
 
@@ -51,14 +52,34 @@ function create_slides() {
     // Question Slides
     for(let q of form.questions) create_slide(q.title, q.subtitle, q.inputs, advance_slide, q.required);
 
-    // Finish Slide
-    create_slide('Thank you!', `Your response has been recorded. You may now close this window.`, []);
+    // Submitting Slide
+    create_slide('Submitting...', `Please wait a moment while your request is handled`, []);
+
+    // Make sure progress bar is on top of the stack
+    document.querySelector('.progress').style.zIndex = form.questions.length + 2;
 
 }
 
 function advance_slide() {
 
     if(document.querySelectorAll('.slide')[slide_index + 1]) document.querySelectorAll('.slide')[slide_index++].style.animation = 'slide-out 1s cubic-bezier(0.2, 1.24, 1, 1) forwards';
+    else return;
+    
+    // Progress bar updating
+    document.querySelector('.progress>.inner').style.width = `${(slide_index / (form.questions.length + 1)) * 100}%`;
+    
+    // If on submitting slide
+    if(slide_index == form.questions.length + 1) {
+
+        request('/submit', { responses }, (res) => {
+            
+            // Submitting finished
+            create_slide('Thanks!', `Your answers have been recorded`, []);
+            advance_slide();
+
+        });
+
+    }
 
 }
 
