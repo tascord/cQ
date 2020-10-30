@@ -50,7 +50,7 @@ class Button extends InputMethod {
 class Text extends InputMethod {
     
     constructor(placeholder) {
-        super(placeholder);
+        super('Enter text');
     }
 
 }
@@ -66,7 +66,7 @@ class Radio extends InputMethod {
 class Digit extends InputMethod {
     
     constructor(placeholder) {
-        super(placeholder);
+        super('Enter numerical value');
     }
 
 }

@@ -1,6 +1,7 @@
 
-const e = require('express');
 const fs = require('fs');
+const db = require('quick.db');
+const bp = require('body-parser');
 
 // ————————————————————————————————— //
 
@@ -11,6 +12,9 @@ const io   = require('socket.io')(http);
 // Settings
 app.set('view engine', 'ejs');
 app.set('views', __dirname + '/pages');
+
+// Body parsing for POST requests
+app.use(bp.json())
 
 // Start the server.
 http.listen(3000, () => console.log('Started!'));
@@ -43,7 +47,7 @@ app.get('*', (req, res) => {
     if(fs.existsSync(`./pages/${path}.ejs`)) return res.render(`${path}.ejs`);
 
     // Otherwise render a 404.
-    return res.send('<h1> 404 lol </h1>');
+    return res.render('404.ejs');
 
 });
 
@@ -59,8 +63,10 @@ app.post('*', (req, res) => {
         // Form responses
         case "submit":
 
-            console.log('sumbit');
-            res.send('your mum more like uhhhhhhhhhhhhhhhhhhhhhhhh fat?!').end();
+            console.log(req.body.id);
+
+            // db.push(``)
+            res.status(204).end();
 
         break;
 

@@ -1,7 +1,9 @@
 
-$back : #0e0000;
-$mid  : #a15266;
-$light: #ebabbb;
+:root {
+    --back : #250216;
+    --mid  : #a15266;
+    --light: #ebabbb;
+}
 
 body {
     
@@ -35,7 +37,7 @@ body {
     flex-direction: column;
     justify-content: center;
 
-    background-color: $back;
+    background-color: var(--back);
 
     .inner {
         
@@ -49,7 +51,7 @@ body {
         
         h1 {
 
-            color: $light;
+            color: var(--light);
 
             font-size: 5vmin;
             margin: 0;
@@ -58,7 +60,7 @@ body {
 
         sub {
 
-            color: $mid;
+            color: var(--mid);
             font-size: 2vmin;
 
             &.error {
@@ -82,11 +84,14 @@ body {
         margin-top: 3vmin;
 
         input[type="text"] {
+            font-family: 'Nunito', sans-serif;
+            font-size: 2vmin;
             width: 30%;
         }
 
         button {
-            font-size: 90%;
+            font-family: 'Nunito', sans-serif;
+            font-size: 2vmin;
         }
 
     }
@@ -96,34 +101,41 @@ body {
         position: absolute;
         bottom: 5%;
         right: 5%;
+        width: 15%;
+        font-size: 2vmin;
 
     }
 
 }
 
-button, input[type="text"] {
+button, input[type="text"], label {
 
     padding: 1%;
 
-    color: $light;
+    color: var(--light);
     background: none;
     cursor: pointer;
 
     outline: none;
-    border: 2px solid $mid;
-    border-radius: 20px;
+    border: none;
+
+    border-bottom: 2px solid var(--mid);
 
     transition: border 0.15s ease-in-out;
     &:hover, &:active {
-        border-color: $light;
+        border-color: var(--light);
     }
 
+}
+
+button {
+    border: 2px solid var(--mid);
 }
 
 a {
     text-decoration: none;
     font-style: italic;
-    color: $light;
+    color: var(--light);
 }
 
 .radio {
@@ -133,24 +145,30 @@ a {
     align-items: center;
     justify-content: center;
 
-    input {
-        width: 2vmin;
-        margin-right: 0.5vmin;
+    color: var(--light);
+
+    input[type="radio"] {
+        display: none;
     }
 
-    color: $light;
+    label {
+        
+        padding: 10%;
+
+        font-family: 'Nunito', sans-serif;
+        font-size: 2vmin;
+
+        cursor: pointer;
+
+    }
 
 }
 
 input[type="text"]::placeholder {
-    color: $light;
-    transition: color 0.15s ease-in-out;
-}
-
-input[type="radio"] {
     
-    transform: scale(1.7, 1.7);
-    // appearance: none;
+    color: var(--light);
+    opacity: 0.5;
+    transition: color 0.15s ease-in-out;
 
 }
 
@@ -169,7 +187,7 @@ input[type="radio"] {
         width: 0%;
         height: 100%;
 
-        background: $mid;
+        background: var(--mid);
         transition: width 1s ease-in-out;
 
     }

@@ -6,7 +6,7 @@ let responses = [];
 const load_form = () => {
 
     let js = document.createElement("script");
-    js.src=`/p/forms/data/${get_URI_shard('id')}.js`;
+    js.src =`/p/forms/data/${get_URI_shard('id')}.js`;
     document.body.appendChild(js);
     
     js.onload = () => {
@@ -71,7 +71,7 @@ function advance_slide() {
     // If on submitting slide
     if(slide_index == form.questions.length + 1) {
 
-        request('/submit', { responses }, (res) => {
+        request('/submit', { id: get_URI_shard('id'),  responses }, (res) => {
             
             // Submitting finished
             create_slide('Thanks!', `Your answers have been recorded`, []);
@@ -95,7 +95,7 @@ function create_slide(title, subtitle, inputs, callback, required) {
         <div class="inner">
             
             <h1>${title}</h1>
-            ${subtitle == null ? '' : `<sub>${subtitle}</sub>`}
+            ${subtitle == null ? '' : `<sub>${subtitle.replace(/\n/g, '<br>')}</sub>`}
             <sub class="error"></sub>
 
         </div>
@@ -109,7 +109,7 @@ function create_slide(title, subtitle, inputs, callback, required) {
     elem = document.querySelector(`[data-slide-id="${slide_z_index}"]`);
 
     let inputs_container = elem.children[elem.children.length - 1];
-    inputs instanceof Array ? inputs.forEach(i => inputs_container.appendChild(create_input(i, callback))) : inputs_container.appendChild(create_input(inputs, callback));
+    inputs instanceof Array ? inputs.forEach((e, i) => inputs_container.appendChild(create_input(e, slide_index.toString() + i, callback))) : inputs_container.appendChild(create_input(inputs, slide_index, callback));
 
     elem.children[elem.children.length - 1].childNodes.forEach(elem => {
 
@@ -121,7 +121,7 @@ function create_slide(title, subtitle, inputs, callback, required) {
 
 }
 
-function create_input(input, callback) {
+function create_input(input, value, callback) {
 
     let elem;
 
@@ -163,10 +163,12 @@ function create_input(input, callback) {
         elem.type = 'text';
         elem.placeholder = input.placeholder;
 
-        elem.onkeyup = (e) => e.target.value = e.target.value.replace(/\D/g, ''); 
+        elem.onkeyup = (e) => { if(e.target.value.match(/\D/g)) { console.log(e.target.parentElement.parentElement.children[0].children[2].innerText = 'Please enter a number into this field.'); } e.target.value = e.target.value.replace(/\D/g, ''); }
 
         if(callback) elem.onkeydown = (e) => {
             
+            if(e.target.value.match(/\D/g)) console.log(e.target.parentElement.parentElement.children[0].children[2].innerText = 'Please enter a number into this field.');
+
             e.target.value = e.target.value.replace(/\D/g, '');
 
             if(e.keyCode == 13) {
@@ -194,15 +196,17 @@ function create_input(input, callback) {
 
         let radio = document.createElement('input');
         radio.type = 'radio';
+        radio.id = value;
         radio.name = slide_index;
-
-        let label = document.createElement('span');
-        label.innerText = input.placeholder;
-
+        
+        radio.onchange = callback;
         elem.appendChild(radio);
+        
+        let label = document.createElement('label');
         elem.appendChild(label);
 
-        radio.onchange = callback;
+        label.outerHTML = `<label for="${value}">${input.placeholder}</label>`;
+        // label.innerText = input.placeholder;
 
     }
 
