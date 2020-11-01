@@ -1,7 +1,19 @@
-:root {
+body.red {
   --back: #250216;
   --mid: #a15266;
   --light: #ebabbb;
+}
+
+body.green {
+  --back: #022512;
+  --mid: #52a16a;
+  --light: #abebbe;
+}
+
+body.blue {
+  --back: #030225;
+  --mid: #5a52a1;
+  --light: #b2abeb;
 }
 
 body {
@@ -202,6 +214,53 @@ input[type="text"]::placeholder {
   background: var(--mid);
   -webkit-transition: width 1s ease-in-out;
   transition: width 1s ease-in-out;
+}
+
+.range {
+  display: inline-block;
+}
+
+.range input[type="range"] {
+  -webkit-appearance: none;
+     -moz-appearance: none;
+          appearance: none;
+  padding: 1%;
+  color: var(--light);
+  background: none;
+  cursor: pointer;
+  outline: none;
+  border: none;
+  border-bottom: 2px solid var(--mid);
+  -webkit-transition: border 0.15s ease-in-out;
+  transition: border 0.15s ease-in-out;
+}
+
+.range input[type="range"]:hover, .range input[type="range"]:active {
+  border-color: var(--light);
+}
+
+.range input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+          appearance: none;
+  width: 3vmin;
+  height: 3vmin;
+  background: var(--light);
+  cursor: pointer;
+  opacity: 0.75;
+  -webkit-transition: opacity 0.15s ease-in-out;
+  transition: opacity 0.15s ease-in-out;
+}
+
+.range input[type="range"]::-webkit-slider-thumb:hover, .range input[type="range"]::-webkit-slider-thumb:active {
+  opacity: 1;
+}
+
+.range input[type="range"]::-webkit-slider-thumb:before {
+  content: 'pog';
+}
+
+.range label {
+  color: white;
 }
 
 @-webkit-keyframes slide-out {

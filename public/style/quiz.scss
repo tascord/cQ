@@ -1,8 +1,25 @@
 
-:root {
-    --back : #250216;
-    --mid  : #a15266;
-    --light: #ebabbb;
+body {
+    
+    &.red {
+        --back : #250216;
+        --mid  : #a15266;
+        --light: #ebabbb;
+    }
+
+    &.green {
+        --back : #022512;
+        --mid  : #52a16a;
+        --light: #abebbe;
+    }
+
+    &.blue {
+        --back : #030225;
+        --mid  : #5a52a1;
+        --light: #b2abeb;
+    }
+    
+    
 }
 
 body {
@@ -189,6 +206,64 @@ input[type="text"]::placeholder {
 
         background: var(--mid);
         transition: width 1s ease-in-out;
+
+    }
+
+}
+
+.range {
+    
+    display: inline-block;
+
+    input[type="range"] {
+    
+        appearance: none;
+    
+        padding: 1%;
+    
+        color: var(--light);
+        background: none;
+        cursor: pointer;
+    
+        outline: none;
+        border: none;
+    
+        border-bottom: 2px solid var(--mid);
+    
+        transition: border 0.15s ease-in-out;
+        &:hover, &:active {
+            border-color: var(--light);
+        }
+    
+        &::-webkit-slider-thumb {
+            
+            appearance: none;
+            
+            width: 3vmin;
+            height: 3vmin;
+    
+            background: var(--light);
+            cursor: pointer;
+    
+            opacity: 0.75;
+            
+            transition: opacity 0.15s ease-in-out;
+            &:hover, &:active {
+                opacity: 1;
+            }
+    
+            &:before {
+                content: 'pog';
+            }
+    
+    
+        }
+    
+    }
+
+    label {
+               
+        color: white;
 
     }
 
