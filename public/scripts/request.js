@@ -1,10 +1,31 @@
-function request(url, data, callback = null) {
+const request = (url, data = {}) => new Promise((resolve, reject) => {
 
     let xhr = new XMLHttpRequest();
+    let fd = new FormData();
+
+    let method = 'POST';
+
+    for(let field in data) fd.append(field.title, field.data);
     
-    xhr.open('POST', url, true);
-    xhr.send(data);
+    xhr.open(method, url, true);
+    xhr.setRequestHeader('Content-Type', 'application/json');
+    xhr.send(JSON.stringify(data));
 
-    if(callback) xhr.onload = (data) => callback({ status: data.target.status, data: data.target.response });
+    
+    xhr.onload = (data) => {
 
-}
+        if (data.target.status >= 200 && data.target.status < 300) {
+            
+            let response = data.target.response;
+            
+            try       { response = JSON.parse(response);           }
+            catch (e) { response = data.target.response;           }
+            finally   { resolve(response);                         }
+
+        }
+
+        else reject(data.target.response);
+
+    }
+
+});

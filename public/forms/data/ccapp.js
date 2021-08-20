@@ -1,5 +1,5 @@
 const _ = new Form('CactiveClient — Beta Tester Application', 'CactiveNetwork')
-    
+
     .addQuestion(`Do you meet the following requirements?`, `
         You must not be in any agreement / working with other Minecraft clients.
         You must have a working microphone and be able to join voice channels.1
@@ -9,7 +9,7 @@ const _ = new Form('CactiveClient — Beta Tester Application', 'CactiveNetwork'
         You must be and stay in the CactiveNetwork discord; https://discord.gg/NeqVuSy.
     `, new Button('I am eligible and meet the required criteria.'), true)
     
-    .addQuestion(`Please state your Discord username and tag.`, `We need this information to identify who is applying.`, new Text(), true)
+    .addQuestion(`Please state your Discord username and tag.`, `We need this information to identify who is applying.`, new Text(undefined, /^(@|).+?#[0-9]{4}$/), true)
 
     .addQuestion(`What operating system are you using?`, `What type of computer system are you running on the computer you tend to play on?`, [
         new Radio(`Windows`),
@@ -18,6 +18,6 @@ const _ = new Form('CactiveClient — Beta Tester Application', 'CactiveNetwork'
         new Radio(`Other`)
     ], true)
 
-    .addQuestion(`How much RAM will you allocate to your game?`, `This is not about how much RAM you have available on your computer, but how much you are willing to allocate to the client. We recommend at least 8GB+ RAM for your system at ~3GB RAM for your game.`, new Range(1, 8, 'GB'), true)
+    .addQuestion(`How much RAM will you allocate to your game?`, `This is not about how much RAM you have available on your computer, but how much you are willing to allocate to the client. We recommend at least 8GB+ RAM for your system at ~3GB RAM for your game.`, new Range(1, 8, 1, 1, 'GB'), true)
 
     // .addQuestion

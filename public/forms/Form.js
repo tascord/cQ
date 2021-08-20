@@ -33,8 +33,14 @@ class Form {
 
 class InputMethod {
 
-    constructor(placeholder) {
+    constructor(placeholder, regex) {
         this.placeholder = placeholder;
+        this.regex = regex;
+    }
+
+    validate(input) {
+        if(this.regex) return this.regex.test(input);
+        return true;
     }
 
 }
@@ -49,8 +55,8 @@ class Button extends InputMethod {
 
 class Text extends InputMethod {
     
-    constructor(placeholder) {
-        super('Enter text');
+    constructor(placeholder, regex) {
+        super(placeholder ?? 'Enter text', regex);
     }
 
 }
@@ -67,6 +73,28 @@ class Digit extends InputMethod {
     
     constructor(placeholder) {
         super('Enter numerical value');
+    }
+
+}
+
+class Range extends InputMethod {
+
+    constructor(min, max, step, value, suffix) {
+
+        super('');
+
+        this.min = min ?? 0;
+        this.max = max ?? 10;
+        this.step = step ?? 1;
+        this.value = value ?? 0;
+        this.suffix = suffix ?? '';
+
+    }
+
+    validate(value) {
+        if(isNan(value)) return false;
+        const val = parseFloat(value);
+        return (val < max || val > min && isFinite(val));
     }
 
 }

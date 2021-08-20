@@ -1,45 +1,40 @@
-
 body {
-    
     &.red {
-        --back : #250216;
-        --mid  : #a15266;
+        --back: #250216;
+        --mid: #a15266;
         --light: #ebabbb;
     }
 
     &.green {
-        --back : #022512;
-        --mid  : #52a16a;
+        --back: #022512;
+        --mid: #52a16a;
         --light: #abebbe;
     }
 
     &.blue {
-        --back : #030225;
-        --mid  : #5a52a1;
+        --back: #030225;
+        --mid: #5a52a1;
         --light: #b2abeb;
     }
-    
-    
 }
 
 body {
-    
-    width: 100vw;
-    height: 100vh;
+
+    max-width: 100vw;
+    max-height: 100vh;
 
     margin: 0;
     padding: 0;
 
     overflow: hidden;
+    background: var(--back);
 
     * {
-        font-family: 'Nunito', sans-serif;
+        font-family: "Nunito", sans-serif;
     }
-    
 }
 
 .slide {
-
     position: absolute;
     top: 0;
     left: 0;
@@ -55,41 +50,41 @@ body {
     justify-content: center;
 
     background-color: var(--back);
+    transition: background-color 0.15s ease-in-out;
+    // border-left: 2px solid var(--light);
 
     .inner {
-        
-        width: 60%;
-
-        margin-right: 25%;
+        width: calc(min(60rem, 80%));
+        margin-right: 10rem;
 
         display: flex;
         flex-direction: column;
         justify-content: center;
-        
+        flex-wrap: wrap;
+
         h1 {
-
             color: var(--light);
-
+            transition: color 0.15s ease-in-out;
+            
+            word-wrap: break-word;
             font-size: 5vmin;
             margin: 0;
-
         }
 
         sub {
 
             color: var(--mid);
+            transition: color 0.15s ease-in-out;
+
             font-size: 2vmin;
 
             &.error {
                 font-style: italic;
             }
-
         }
-
     }
 
     .inputs {
-            
         width: 70%;
 
         display: flex;
@@ -101,33 +96,30 @@ body {
         margin-top: 3vmin;
 
         input[type="text"] {
-            font-family: 'Nunito', sans-serif;
+            font-family: "Nunito", sans-serif;
             font-size: 2vmin;
-            width: 30%;
+            width: calc(min(70%, 30rem));
         }
 
         button {
-            font-family: 'Nunito', sans-serif;
+            font-family: "Nunito", sans-serif;
             font-size: 2vmin;
         }
-
     }
 
     .skip {
-
         position: absolute;
         bottom: 5%;
-        right: 5%;
-        width: 15%;
+        right: 7.5%;
+        width: 7rem;
         font-size: 2vmin;
-
     }
-
 }
 
-button, input[type="text"], label {
-
-    padding: 1%;
+button,
+input[type="text"],
+label {
+    padding: 0.5rem 1rem;
 
     color: var(--light);
     background: none;
@@ -139,10 +131,10 @@ button, input[type="text"], label {
     border-bottom: 2px solid var(--mid);
 
     transition: border 0.15s ease-in-out;
-    &:hover, &:active {
+    &:hover,
+    &:active {
         border-color: var(--light);
     }
-
 }
 
 button {
@@ -156,7 +148,6 @@ a {
 }
 
 .radio {
-
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -169,30 +160,25 @@ a {
     }
 
     label {
-        
-        padding: 10%;
+        padding: 0.5rem 1rem;
+        margin: 0.15rem;
 
-        font-family: 'Nunito', sans-serif;
+        font-family: "Nunito", sans-serif;
         font-size: 2vmin;
 
         cursor: pointer;
-
     }
-
 }
 
 input[type="text"]::placeholder {
-    
     color: var(--light);
     opacity: 0.5;
     transition: color 0.15s ease-in-out;
-
 }
 
 .progress {
-
     position: absolute;
-    
+
     top: 0;
     left: 0;
 
@@ -200,79 +186,148 @@ input[type="text"]::placeholder {
     height: 2vmin;
 
     .inner {
-
-        width: 0%;
+        width: 0;
         height: 100%;
 
         background: var(--mid);
         transition: width 1s ease-in-out;
-
     }
-
 }
 
 .range {
-    
-    display: inline-block;
+
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    max-height: 1rem;
 
     input[type="range"] {
-    
+        max-height: 1rem;
         appearance: none;
-    
-        padding: 1%;
-    
+
+        padding: 0.15rem;
+
         color: var(--light);
         background: none;
         cursor: pointer;
-    
+
         outline: none;
         border: none;
-    
+
         border-bottom: 2px solid var(--mid);
-    
+
         transition: border 0.15s ease-in-out;
-        &:hover, &:active {
+        &:hover,
+        &:active {
             border-color: var(--light);
         }
-    
+
         &::-webkit-slider-thumb {
-            
             appearance: none;
-            
-            width: 3vmin;
-            height: 3vmin;
-    
-            background: var(--light);
+
+            width: 1rem;
+            height: 1rem;
+
+            border: 2px solid var(--mid);
             cursor: pointer;
-    
             opacity: 0.75;
-            
-            transition: opacity 0.15s ease-in-out;
-            &:hover, &:active {
+
+            background: linear-gradient(90deg, transparent 50%, var(--mid) 50%);
+
+            transition: background 0.15s ease-in-out, opacity 0.15s ease-in-out;
+            &:hover,
+            &:active {
                 opacity: 1;
+                background: linear-gradient(90deg, transparent 50%, var(--light) 50%);
             }
-    
-            &:before {
-                content: 'pog';
-            }
-    
-    
         }
-    
     }
 
     label {
-               
+        border: 2px solid var(--mid);
+        margin-left: 0.15rem;
+        padding: 0.15rem 1rem;
+        height: 1rem;
+        font-size: 0.75rem;
         color: white;
-
     }
-
 }
 
 @keyframes slide-out {
+    0% {
+        left: 0%;
+        visibility: visible;
+    }
+    99% {
+        left: 100%;
+        visibility: visible;
+    }
+    100% {
+        left: 100%;
+        visibility: hidden;
+    }
+}
 
-    0%   { left: 0%;   visibility: visible; }
-    99%  { left: 100%; visibility: visible; }
-    100% { left: 100%; visibility: hidden;  }
+.ui {
+    .palette {
+        width: 5rem;
+        height: 1rem;
 
+        position: absolute;
+        bottom: 0.75rem;
+        left: 0.5rem;
+
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+
+        div {
+
+            width: 1rem;
+            height: 1rem;
+
+            position: relative;
+            border: 2px solid var(--light);
+            cursor: pointer;
+
+            &.red {
+                background: linear-gradient(
+                    45deg,
+                    #250216 0%,
+                    #250216 33%,
+                    #a15266 33%,
+                    #a15266 66%,
+                    #ebabbb 66%,
+                    #ebabbb 100%
+                );
+                // background: #250216;
+            }
+
+            &.green {
+                background: linear-gradient(
+                    45deg,
+                    #022512 0%,
+                    #022512 33%,
+                    #52a16a 33%,
+                    #52a16a 66%,
+                    #abebbe 66%,
+                    #abebbe 100%
+                );
+                // background: #022512;
+            }
+
+            &.blue {
+                background: linear-gradient(
+                    45deg,
+                    #030225 0%,
+                    #030225 33%,
+                    #5a52a1 33%,
+                    #5a52a1 66%,
+                    #b2abeb 66%,
+                    #b2abeb 100%
+                );
+                // background: #030225;
+            }
+        }
+    }
 }

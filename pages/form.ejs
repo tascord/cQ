@@ -1,19 +1,27 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
+
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@200;300;400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/p/style/colours.css">
     <link rel="stylesheet" href="/p/style/quiz.css">
 
-    <script src="/p/scripts/themes.js"></script>
     <script src="/p/scripts/request.js"></script>
-
     <script src="/p/forms/Form.js"></script>
-    <script src="/p/scripts/form_handler.js"></script>
+    <script src="/p/scripts/form_handler.js" defer></script>
+    <script src="/p/scripts/theme.js" defer></script>
+
+    <div class="ui">
+        <div class="palette">
+            <div class="blue"></div>
+            <div class="green"></div>
+            <div class="red"></div>
+        </div>
+    </div>
 
     <div class="progress">
         <div class="inner"></div>
@@ -22,7 +30,9 @@
     <title>Loading... — cQ</title>
 
 </head>
-<body onload="load_form(); load_theme()">
+
+<body>
 
 </body>
+
 </html>

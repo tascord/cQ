@@ -1,7 +1,12 @@
 
 const fs = require('fs');
-const db = require('quick.db');
+const pa = require('path');
+const db = require('quick.db')(pa.join(__dirname, 'cq.sqlite'));
 const bp = require('body-parser');
+
+// ————————————————————————————————— //
+
+const data = require('./data');
 
 // ————————————————————————————————— //
 
@@ -14,7 +19,7 @@ app.set('view engine', 'ejs');
 app.set('views', __dirname + '/pages');
 
 // Body parsing for POST requests
-app.use(bp.json())
+app.use(bp.json());
 
 // Start the server.
 http.listen(3000, () => console.log('Started!'));
@@ -24,10 +29,7 @@ http.listen(3000, () => console.log('Started!'));
 app.get('*', (req, res) => {
 
     // Remove the '/' from the beginning of the path.
-    let path = req.path.slice(1);
-
-    // Default to /index route.
-    if(!path) path = 'index';
+    let path = req.path.slice(1) || 'index';
 
     // Non-page stuff like CSS & images.
     if(path.startsWith('p/')) {
@@ -63,7 +65,7 @@ app.post('*', (req, res) => {
         // Form responses
         case "submit":
 
-            console.log(req.body.id);
+            console.log(req.body);
 
             // db.push(``)
             res.status(204).end();

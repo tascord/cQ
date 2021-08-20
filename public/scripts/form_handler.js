@@ -6,9 +6,9 @@ let responses = [];
 const load_form = () => {
 
     let js = document.createElement("script");
-    js.src =`/p/forms/data/${get_URI_shard('id')}.js`;
+    js.src = `/p/forms/data/${get_URI_shard('id')}.js`;
     document.body.appendChild(js);
-    
+
     js.onload = () => {
 
         try { _ } catch {
@@ -22,15 +22,16 @@ const load_form = () => {
         document.title = `${form.name} — cQ`;
 
         create_slides();
+        // advance_slide();
 
     };
-    
+
     js.onerror = () => {
         create_slide('Unable to load form', 'Make sure the URL is correct and/or retry later.', [])
         document.title = `Uh oh! — cQ`;
         return;
     };
-    
+
 
 }
 
@@ -50,7 +51,7 @@ function create_slides() {
     create_slide(form.name, `by <b>${form.author}</b>`, new Button('Click here to begin!'), advance_slide);
 
     // Question Slides
-    for(let q of form.questions) create_slide(q.title, q.subtitle, q.inputs, advance_slide, q.required);
+    for (let q of form.questions) create_slide(q.title, q.subtitle, q.inputs, advance_slide, q.required);
 
     // Submitting Slide
     create_slide('Submitting...', `Please wait a moment while your request is handled`, []);
@@ -58,26 +59,36 @@ function create_slides() {
     // Make sure progress bar is on top of the stack
     document.querySelector('.progress').style.zIndex = form.questions.length + 2;
 
+    // Other widgets
+    const widget_layer_index = form.questions.length + 3;
+    const widget_layer = document.querySelector('.ui');
+
+    [...widget_layer.children, widget_layer].forEach(elem => {
+        elem.style.zIndex = widget_layer_index;
+    });
+
+
 }
 
 function advance_slide() {
 
-    if(document.querySelectorAll('.slide')[slide_index + 1]) document.querySelectorAll('.slide')[slide_index++].style.animation = 'slide-out 1s cubic-bezier(0.2, 1.24, 1, 1) forwards';
+    if (document.querySelectorAll('.slide')[slide_index + 1]) document.querySelectorAll('.slide')[slide_index++].style.animation = 'slide-out 1s cubic-bezier(0.2, 1.24, 1, 1) forwards';
     else return;
-    
+
     // Progress bar updating
     document.querySelector('.progress>.inner').style.width = `${(slide_index / (form.questions.length + 1)) * 100}%`;
-    
+
     // If on submitting slide
-    if(slide_index == form.questions.length + 1) {
+    if (slide_index == form.questions.length + 1) {
 
-        request('/submit', { id: get_URI_shard('id'),  responses }, (res) => {
-            
-            // Submitting finished
-            create_slide('Thanks!', `Your answers have been recorded`, []);
-            advance_slide();
+        request('/submit', { id: get_URI_shard('id'), responses })
+            .then(() => {
 
-        });
+                // Submitting finished
+                create_slide('Thanks!', `Your answers have been recorded`, []);
+                advance_slide();
+
+            });
 
     }
 
@@ -88,8 +99,8 @@ function create_slide(title, subtitle, inputs, callback, required) {
     let elem = document.createElement('div');
     document.body.appendChild(elem);
 
-    elem.outerHTML = 
-    `
+    elem.outerHTML =
+        `
     <div class="slide" style="z-index: ${slide_z_index}" data-slide-id="${slide_z_index}">
         
         <div class="inner">
@@ -125,27 +136,33 @@ function create_input(input, value, callback) {
 
     let elem;
 
-    if(input instanceof Button) {
-        
+    if (input instanceof Button) {
+
         elem = document.createElement('button');
         elem.innerText = input.placeholder;
-        if(callback) elem.onclick = callback;
+        if (callback) elem.onclick = callback;
 
     }
 
-    if(input instanceof Text) {
+    if (input instanceof Text) {
 
         elem = document.createElement('input');
         elem.type = 'text';
         elem.placeholder = input.placeholder;
-        if(callback) elem.onkeydown = (e) => {
-            if(e.keyCode == 13) {
+        if (callback) elem.onkeydown = (e) => {
+            const error = e.target.parentElement.parentElement.children[0].children[2];
 
-                if(e.target.value.trim().length == 0) {
+            if (e.keyCode == 13) {
 
-                    console.log(e.target.parentElement.parentElement.children[0].children[2].innerText = 'Please enter a value.');
+                if (e.target.value.trim().length == 0) {
+                    console.log(error.innerText = 'Please enter a value.');
+                }
 
-                } else {
+                else if (!input.validate(elem.value)) {
+                    console.log(error.innerText = 'Invalid value');
+                }
+
+                else {
 
                     callback();
                     elem.blur()
@@ -157,27 +174,40 @@ function create_input(input, value, callback) {
 
     }
 
-    if(input instanceof Digit) {
+    if (input instanceof Digit) {
 
         elem = document.createElement('input');
         elem.type = 'text';
         elem.placeholder = input.placeholder;
 
-        elem.onkeyup = (e) => { if(e.target.value.match(/\D/g)) { console.log(e.target.parentElement.parentElement.children[0].children[2].innerText = 'Please enter a number into this field.'); } e.target.value = e.target.value.replace(/\D/g, ''); }
+        elem.onkeyup = (e) => {
+            const error = e.target.parentElement.parentElement.children[0].children[2];
 
-        if(callback) elem.onkeydown = (e) => {
-            
-            if(e.target.value.match(/\D/g)) console.log(e.target.parentElement.parentElement.children[0].children[2].innerText = 'Please enter a number into this field.');
+            if (e.target.value.match(/\D/g)) {
+                console.log(error.innerText = 'Please enter a number into this field.');
+            }
+
+            e.target.value = e.target.value.replace(/\D/g, '');
+        }
+
+        if (callback) elem.onkeydown = (e) => {
+
+            const error = e.target.parentElement.parentElement.children[0].children[2];
+            if (e.target.value.match(/\D/g)) console.log(error.innerText = 'Please enter a number into this field.');
 
             e.target.value = e.target.value.replace(/\D/g, '');
 
-            if(e.keyCode == 13) {
+            if (e.keyCode == 13) {
 
-                if(e.target.value.trim().length == 0) {
+                if (e.target.value.trim().length == 0) {
+                    console.log(error.innerText = 'Please enter a value.');
+                }
 
-                    console.log(e.target.parentElement.parentElement.children[0].children[2].innerText = 'Please enter a value.');
+                else if (!input.validate(elem.value)) {
+                    console.log(error.innerText = 'Invalid value');
+                }
 
-                } else {
+                else {
 
                     callback();
                     elem.blur()
@@ -189,7 +219,33 @@ function create_input(input, value, callback) {
 
     }
 
-    if(input instanceof Radio) {
+    if (input instanceof Range) {
+
+        elem = document.createElement('div');
+        elem.classList.add('range');
+
+        const slider = document.createElement('input');
+        slider.type = 'range';
+        slider.value = input.value;
+        slider.min = input.min;
+        slider.max = input.max;
+        slider.step = input.step;
+
+        const label = document.createElement('label');
+        label.innerText = input.value + input.suffix;
+
+        elem.appendChild(slider);
+        elem.appendChild(label);
+
+        slider.onchange = slider.ondrag = slider.onmousemove = () => label.innerText = slider.value + input.suffix;
+        label.onclick = () => {
+            callback();
+            elem.blur()
+        }
+
+    }
+
+    if (input instanceof Radio) {
 
         elem = document.createElement('div');
         elem.classList.add('radio');
@@ -198,10 +254,10 @@ function create_input(input, value, callback) {
         radio.type = 'radio';
         radio.id = value;
         radio.name = slide_index;
-        
+
         radio.onchange = callback;
         elem.appendChild(radio);
-        
+
         let label = document.createElement('label');
         elem.appendChild(label);
 
@@ -210,7 +266,7 @@ function create_input(input, value, callback) {
 
     }
 
-    if(!elem) {
+    if (!elem) {
         elem = document.createElement('script');
         elem.innerHTML = `alert('Looks like something funky happened with this form.\\nPlease contact me (tascord) providing the form code: "${get_URI_shard('id')}".')`;
         console.log(input);
@@ -219,3 +275,5 @@ function create_input(input, value, callback) {
     return elem;
 
 }
+
+load_form();

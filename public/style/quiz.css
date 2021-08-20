@@ -17,15 +17,16 @@ body.blue {
 }
 
 body {
-  width: 100vw;
-  height: 100vh;
+  max-width: 100vw;
+  max-height: 100vh;
   margin: 0;
   padding: 0;
   overflow: hidden;
+  background: var(--back);
 }
 
 body * {
-  font-family: 'Nunito', sans-serif;
+  font-family: "Nunito", sans-serif;
 }
 
 .slide {
@@ -47,11 +48,13 @@ body * {
       -ms-flex-pack: center;
           justify-content: center;
   background-color: var(--back);
+  -webkit-transition: background-color 0.15s ease-in-out;
+  transition: background-color 0.15s ease-in-out;
 }
 
 .slide .inner {
-  width: 60%;
-  margin-right: 25%;
+  width: calc(min(60rem, 80%));
+  margin-right: 10rem;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -62,16 +65,23 @@ body * {
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
 }
 
 .slide .inner h1 {
   color: var(--light);
+  -webkit-transition: color 0.15s ease-in-out;
+  transition: color 0.15s ease-in-out;
+  word-wrap: break-word;
   font-size: 5vmin;
   margin: 0;
 }
 
 .slide .inner sub {
   color: var(--mid);
+  -webkit-transition: color 0.15s ease-in-out;
+  transition: color 0.15s ease-in-out;
   font-size: 2vmin;
 }
 
@@ -100,26 +110,28 @@ body * {
 }
 
 .slide .inputs input[type="text"] {
-  font-family: 'Nunito', sans-serif;
+  font-family: "Nunito", sans-serif;
   font-size: 2vmin;
-  width: 30%;
+  width: calc(min(70%, 30rem));
 }
 
 .slide .inputs button {
-  font-family: 'Nunito', sans-serif;
+  font-family: "Nunito", sans-serif;
   font-size: 2vmin;
 }
 
 .slide .skip {
   position: absolute;
   bottom: 5%;
-  right: 5%;
-  width: 15%;
+  right: 7.5%;
+  width: 7rem;
   font-size: 2vmin;
 }
 
-button, input[type="text"], label {
-  padding: 1%;
+button,
+input[type="text"],
+label {
+  padding: 0.5rem 1rem;
   color: var(--light);
   background: none;
   cursor: pointer;
@@ -130,7 +142,11 @@ button, input[type="text"], label {
   transition: border 0.15s ease-in-out;
 }
 
-button:hover, button:active, input[type="text"]:hover, input[type="text"]:active, label:hover, label:active {
+button:hover, button:active,
+input[type="text"]:hover,
+input[type="text"]:active,
+label:hover,
+label:active {
   border-color: var(--light);
 }
 
@@ -166,8 +182,9 @@ a {
 }
 
 .radio label {
-  padding: 10%;
-  font-family: 'Nunito', sans-serif;
+  padding: 0.5rem 1rem;
+  margin: 0.15rem;
+  font-family: "Nunito", sans-serif;
   font-size: 2vmin;
   cursor: pointer;
 }
@@ -209,7 +226,7 @@ input[type="text"]::placeholder {
 }
 
 .progress .inner {
-  width: 0%;
+  width: 0;
   height: 100%;
   background: var(--mid);
   -webkit-transition: width 1s ease-in-out;
@@ -217,14 +234,24 @@ input[type="text"]::placeholder {
 }
 
 .range {
-  display: inline-block;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+  max-height: 1rem;
 }
 
 .range input[type="range"] {
+  max-height: 1rem;
   -webkit-appearance: none;
      -moz-appearance: none;
           appearance: none;
-  padding: 1%;
+  padding: 0.15rem;
   color: var(--light);
   background: none;
   cursor: pointer;
@@ -242,24 +269,29 @@ input[type="text"]::placeholder {
 .range input[type="range"]::-webkit-slider-thumb {
   -webkit-appearance: none;
           appearance: none;
-  width: 3vmin;
-  height: 3vmin;
-  background: var(--light);
+  width: 1rem;
+  height: 1rem;
+  border: 2px solid var(--mid);
   cursor: pointer;
   opacity: 0.75;
-  -webkit-transition: opacity 0.15s ease-in-out;
-  transition: opacity 0.15s ease-in-out;
+  background: -webkit-gradient(linear, left top, right top, color-stop(50%, transparent), color-stop(50%, var(--mid)));
+  background: linear-gradient(90deg, transparent 50%, var(--mid) 50%);
+  -webkit-transition: background 0.15s ease-in-out, opacity 0.15s ease-in-out;
+  transition: background 0.15s ease-in-out, opacity 0.15s ease-in-out;
 }
 
 .range input[type="range"]::-webkit-slider-thumb:hover, .range input[type="range"]::-webkit-slider-thumb:active {
   opacity: 1;
-}
-
-.range input[type="range"]::-webkit-slider-thumb:before {
-  content: 'pog';
+  background: -webkit-gradient(linear, left top, right top, color-stop(50%, transparent), color-stop(50%, var(--light)));
+  background: linear-gradient(90deg, transparent 50%, var(--light) 50%);
 }
 
 .range label {
+  border: 2px solid var(--mid);
+  margin-left: 0.15rem;
+  padding: 0.15rem 1rem;
+  height: 1rem;
+  font-size: 0.75rem;
   color: white;
 }
 
@@ -291,5 +323,41 @@ input[type="text"]::placeholder {
     left: 100%;
     visibility: hidden;
   }
+}
+
+.ui .palette {
+  width: 5rem;
+  height: 1rem;
+  position: absolute;
+  bottom: 0.75rem;
+  left: 0.5rem;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.ui .palette div {
+  width: 1rem;
+  height: 1rem;
+  position: relative;
+  border: 2px solid var(--light);
+  cursor: pointer;
+}
+
+.ui .palette div.red {
+  background: linear-gradient(45deg, #250216 0%, #250216 33%, #a15266 33%, #a15266 66%, #ebabbb 66%, #ebabbb 100%);
+}
+
+.ui .palette div.green {
+  background: linear-gradient(45deg, #022512 0%, #022512 33%, #52a16a 33%, #52a16a 66%, #abebbe 66%, #abebbe 100%);
+}
+
+.ui .palette div.blue {
+  background: linear-gradient(45deg, #030225 0%, #030225 33%, #5a52a1 33%, #5a52a1 66%, #b2abeb 66%, #b2abeb 100%);
 }
 /*# sourceMappingURL=quiz.css.map */
